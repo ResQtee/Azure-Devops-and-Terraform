@@ -9,8 +9,14 @@ terraform {
     storage_account_name = "tfstorageresqtee"
     container_name = "tfstate"
     key = "terraform.tfstate"
-  }  
+  }
 }
+
+variable "imagebuild" {
+  type        = string
+  description = "Latest image build"
+}
+
 
 resource "azurerm_resource_group" "tf_test"{
     name = "tfmainrg"
@@ -28,7 +34,7 @@ resource "azurerm_container_group" "tfcg_test" {
     
     container {
         name            = "weatherapi"
-        image           = "resqtee/weatherapi"
+        image           = "resqtee/weatherapi:${var.imagebuild}"
         cpu             = "1"
         memory          = "1"
 
